@@ -1,36 +1,81 @@
 "use client";
-import { useState } from "react";
+declare global {
+  interface Window {
+    VANTA: any;
+    _strk: any;
+    edit_page: any;
+
+  }
+}
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Head from "next/head";
 
 export default function Home() {
+
   const [modalOpen, setModalOpen] = useState(false);
   const [activeProject, setActiveProject] = useState<number | null>(null);
+  const [isClosing, setIsClosing] = useState(false);
 
   const openModal = (index: number) => {
     setActiveProject(index);
     setModalOpen(true);
   };
-
+  
   const closeModal = () => {
-    setModalOpen(false);
-    setActiveProject(null);
+    setIsClosing(true);
+    setTimeout(() => {
+      setModalOpen(false);
+      setIsClosing(false);
+      setActiveProject(null);
+    }, 300); // Match blow-down animation duration
   };
+
+  useEffect(() => {
+    const setVanta = () => {
+      if (typeof window !== "undefined" && window.VANTA) {
+        VANTA.FOG({
+          el: "#main",
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          highlightColor: 0xf2b5b5,
+          midtoneColor: 0x413f3f,
+          lowlightColor: 0x0,
+          baseColor: 0x0,
+          blurFactor: 0.81,
+          speed: 1.30,
+          zoom: 0.40
+        })
+      }
+    };
+
+    // Check if _strk and edit_page exist before using them
+    if (typeof window !== "undefined" && window._strk && window.edit_page?.Event) {
+      window._strk.push(() => {
+        setVanta();
+        window.edit_page.Event.subscribe("Page.beforeNewOneFadeIn", setVanta);
+      });
+    } else {
+      // Fallback for testing or if _strk is not defined
+      setVanta();
+    }
+  }, []);
+
   return (
     <>
-      <Head>
-        <title>Mia Salaveria Portfolio</title>
-        <meta name="description" content="Front End Developer Portfolio of Mia Salaveria" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <div className="">
         <nav className="row flex justify-center py-[24px] border border-white">
           <div className="container flex justify-between items-center">
             <h1 className="monument-black text-[18px] lg:text-[24px]">MIA<span className="monument-regular">SALAVERIA</span></h1>
-            <a className="monument-regular text-[12px] lg:text-[18px]" href="/files/MiaSalaveria2025Resume.pdf" download>RESUME</a>
+            <a href="/files/MiaSalaveria2025Resume.pdf" download className="monument-regular text-[12px] lg:text-[18px] relative group text-white after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[2px] after:bg-white after:transition-all after:duration-300 hover:after:w-full hover:after:left-0">
+  RESUME
+</a>
           </div>
         </nav>
-        <main className="relative">
+        <main className="relative" id="main">
           <section className="w-full border border-white flex justify-center">
             <div className="container flex">
               <div className="flex justify-start flex-wrap w-full xl:w-[60%] md:border-r border-white ">
@@ -46,37 +91,15 @@ export default function Home() {
               </div>
               <div className="w-[40%] p-[16px] hidden xl:block">
                 <div className="h-full relative overflow-hidden">
-                  <Image src="/images/black-texture.jpg" alt="Profile" fill style={{ objectFit: 'cover' }} />
+                  <Image src="/images/black-texture.jpg" alt="Profile" fill style={{ objectFit: 'cover' }} className="hidden" />
                 </div>
               </div>
             </div>
           </section>
           <section className="w-full border-r border-l border-b border-white flex justify-center">
             <div className="container flex flex-wrap">
-              <div className="flex justify-start flex-wrap  w-full lg:w-[55%] lg:border-r border-b lg:border-b-0 border-white relative overflow-hidden">
-                <Image src="/images/black-texture.jpg" alt="Profile" fill style={{ objectFit: 'cover' }} />
-                <div className="projects flex w-full flex-wrap relative z-2 border-l border-r lg:border-r-0 border-white">
-                  <div className="header-bar w-full p-4 bg-black">
-                    <h2 className="text-left monument-regular text-[18px] text-white">+ WORK</h2>
-                  </div>
-                  <div className="h-[400px] w-full md:w-[50%] cursor-pointer" onClick={() => openModal(0)}>
-                    <div className="h-full w-full p-[16px]  border-t border-white">
-                      <div className="image-wrapper bg-black h-full w-full flex items-center justify-center hover:bg-white transition duration-400 ease-in-out">
-                        <Image src="/images/tb-logo.png" alt="Profile" width={0} style={{ width: 'auto', height: '40px' }} height={70} sizes="100vw" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="h-[400px] w-full md:w-[50%] cursor-pointer" onClick={() => openModal(1)}>
-                    <div className="h-full w-full p-[16px] border-l border-t border-white">
-                      <div className="image-wrapper bg-black h-full w-full flex items-center justify-center hover:bg-white transition duration-400 ease-in-out">
-                        <Image src="/images/relay-logo.png" alt="Profile" width={0} style={{ width: 'auto', height: '60px' }} height={80} sizes="100vw" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="flex justify-start flex-wrap w-full lg:w-[45%] border-r border-l lg:border-r-0 lg:border-l-0 border-white">
-                <div className="tools w-full flex justify-center flex-col py-[20px] pl-[32px]">
+            <div className="flex justify-start flex-wrap w-full lg:w-[45%] border-r border-l lg:border-r-0 lg:border-l-0 border-white">
+                <div className="tools w-full flex justify-center flex-col py-[20px] pr-[32px]">
                   <h2 className="monument-regular text-[18px] mb-[24px]">+ TOOLS</h2>
                   <ul className="flex flex-wrap pl-0">
                     <li className="tool-sticker">HTML</li>
@@ -98,11 +121,37 @@ export default function Home() {
                   </ul>
                 </div>
               </div>
+              <div className="flex justify-start flex-wrap  w-full lg:w-[55%] lg:border-r border-b lg:border-b-0 border-white relative overflow-hidden">
+                <Image src="/images/black-texture.jpg" alt="Profile" fill style={{ objectFit: 'cover' }} className="hidden"/>
+                <div className="projects flex w-full flex-wrap relative z-2 border-l border-r lg:border-r-0 border-white">
+                  <div className="header-bar w-full p-4">
+                    <h2 className="text-left monument-regular text-[18px] text-white">+ WORK</h2>
+                  </div>
+                  <div className="h-[400px] w-full md:w-[50%] cursor-pointer" onClick={() => openModal(0)}>
+                    <div className="h-full w-full p-[16px]  border-t border-white">
+                      <div className="image-wrapper bg-black h-full w-full flex items-center justify-center hover:bg-white transition duration-400 ease-in-out">
+                        <Image src="/images/tb-logo.png" alt="Profile" width={0} style={{ width: 'auto', height: '40px' }} height={70} sizes="100vw" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="h-[400px] w-full md:w-[50%] cursor-pointer" onClick={() => openModal(1)}>
+                    <div className="h-full w-full p-[16px] border-l border-t border-white">
+                      <div className="image-wrapper bg-black h-full w-full flex items-center justify-center hover:bg-white transition duration-400 ease-in-out">
+                        <Image src="/images/relay-logo.png" alt="Profile" width={0} style={{ width: 'auto', height: '60px' }} height={80} sizes="100vw" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
           {modalOpen && (
-            <div className="fixed inset-0 flex bg-black/75 justify-center items-center z-50">
-              <div className="bg-black border border-white w-[90%] max-w-[600px] relative">
+          <div className="fixed inset-0 flex bg-black/75 justify-center items-center z-50">
+             <div
+               className={`bg-black border border-white w-[90%] max-w-[600px] relative ${
+                 isClosing ? 'blow-down' : 'blow-up'
+               }`}
+             >
                 <div className="modal-top-bar relative border-b border-white h-[32px]">
                   <button
                     onClick={closeModal}
