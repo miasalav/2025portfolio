@@ -6,6 +6,8 @@ declare global {
     edit_page: any;
 
   }
+
+  var VANTA: any;
 }
 import { useState, useEffect } from "react";
 import Image from "next/image";
