@@ -101,7 +101,7 @@ export default function Home() {
           <section className="w-full border-r border-l border-b border-white flex justify-center">
             <div className="container flex flex-wrap">
             <div className="flex justify-start flex-wrap w-full lg:w-[45%] border-r border-l lg:border-r-0 lg:border-l-0 border-white">
-                <div className="tools w-full flex justify-center flex-col py-[20px] pr-[32px]">
+                <div className="tools w-full flex justify-center flex-col py-[20px] pr-[32px] p-4">
                   <h2 className="monument-regular text-[18px] mb-[24px]">+ TOOLS</h2>
                   <ul className="flex flex-wrap pl-0">
                     <li className="tool-sticker">HTML</li>
