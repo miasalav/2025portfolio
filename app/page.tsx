@@ -173,6 +173,9 @@ export default function Home() {
                         <div className="flex justify-center"><a href="https://touchbistro.com/" target="_blank" className="tool-sticker hover:bg-white transition duration-400 ease-in-out hover:!text-black">Visit</a></div>
                       </div>
                       <div className="w-full py-6">
+                        <div className="image-wrapper mb-4">
+                          <Image src="/images/touchbistro-recording.gif" alt="Recording of TouchBistro Home Page" width={0} style={{ width: '100%', height: 'auto' }} height={200} sizes="100vw" unoptimized />
+                        </div>
                         <h3 className="monument-regular text-[18px] font-bold">TASKS</h3>
                         <ul className="mt-4 text-[14px] pl-6 list-disc">
                           <li>Developed and maintained responsive web applications for the
@@ -219,6 +222,9 @@ export default function Home() {
                         <div className="flex justify-center"><a href="https://relayfi.com/scaling-businesses" target="_blank" className="tool-sticker hover:bg-white transition duration-400 ease-in-out hover:!text-black">Visit</a></div>
                       </div>
                       <div className="w-full py-6">
+                        <div className="image-wrapper mb-4">
+                         <Image src="/images/relay-recording.gif" alt="Recording of Relay Landing Page" width={0} style={{ width: '100%', height: 'auto' }} height={200} sizes="100vw" unoptimized/>
+                        </div>
                         <h3 className="monument-regular text-[18px] font-bold">TASKS</h3>
                         <ul className="mt-4 text-[14px] pl-6 list-disc">
                           <li>Developed two landing pages on the Relay Financial marketing website</li>
