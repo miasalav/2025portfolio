@@ -81,7 +81,7 @@ export default function Home() {
           <section className="w-full border border-white flex justify-center">
             <div className="container flex">
               <div className="flex justify-start flex-wrap w-full xl:w-[60%] md:border-r border-white ">
-                <div className="text w-full md:w-[60%] flex justify-center flex-col pr-[32px] py-[24px] md:border-r border-white">
+                <div className="text text-white w-full md:w-[60%] flex justify-center flex-col pr-[32px] py-[24px] md:border-r border-white">
                   <h2 className="monument-black text-[34px] mb-[24px] leading-none"><span className="monument-regular">FRONT-END</span> DEVELOPER</h2>
                   <h3 className="max-w-[700px] mt-[16px] text-[14px]">Hi! I'm Mia and I'm a front-end developer with 7 years of experience building and maintaining web applications helping companies generate leads on marketing websites. A creative at heart, I dabble in different types of interactive media mainly web, design, and music.</h3>
                 </div>
@@ -162,7 +162,7 @@ export default function Home() {
                     ×
                   </button>
                 </div>
-                <div className="modal-content p-6 max-h-[700px] overflow-y-scroll scrollbar-hide">
+                <div className="modal-content p-6 max-h-[700px] overflow-y-scroll scrollbar-hide text-white">
                   {activeProject === 0 && (
                     <div className="flex flex-wrap">
                       <div className="w-full md:w-[50%] h-[200px] bg-[#eee] flex justify-center items-center">
